@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/bmontellano/ChatrBox/issues"
   },
-  "homepage": "https://github.com/bmontellano/ChatrBox#readme"
+  "homepage": "https://github.com/bmontellano/ChatrBox#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.8",
+    "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "socket.io": "^2.0.3"
+  }
 }
