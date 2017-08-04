@@ -1,0 +1,19 @@
+{
+  "name": "chatrbox",
+  "version": "1.0.0",
+  "description": "Hi, I'm the read me. Hehehehehehe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmontellano/ChatrBox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bmontellano/ChatrBox/issues"
+  },
+  "homepage": "https://github.com/bmontellano/ChatrBox#readme"
+}
