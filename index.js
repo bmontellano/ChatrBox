@@ -14,7 +14,16 @@ const
   chatRoutes = require('./routes/chats.js'),
   httpServer = require('http').Server(app),
   io = require('socket.io')(httpServer),
-  passport = require('passport')
+  ejsLayouts = require('express-ejs-layouts'),
+  cookieParser = require('cookie-parser'),
+  session = require('express-session'),
+  mongoDBStore = require('connect-mongodb-session')(session),
+  passport = require('passport'),
+  passportConfig = require('./config/passport.js')
+
+
+
+
 
 
 //mongodb
@@ -22,18 +31,41 @@ mongoose.connect(mongoUrl, (err) => {
   console.log(err || "Connected to MongoDB. WHOOP!")
 })
 
-//Using CORS, morgan + body-parser
+//store session
+const store = new MongoDBStore({
+  uri: mongoConnectionString,
+  collection: 'sessions'
+})
+
+//session + passport
+app.use(session({
+  secret: 'bananas',
+  cookie: {maxAge: 60000000},
+  resave: true,
+  saveUninitialised: false,
+  store: store
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+//Use middleware
 app.use(cors())
 app.use(morgan('dev'))
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 //socket.io
-
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg)
   })
 })
+
+
 
 //server
 httpServer.listen(PORT, function(err) {
