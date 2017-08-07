@@ -78,5 +78,5 @@ app.route('api/users/:id')
     })
   })
 
-//all routes will be /api/beers/:id
+//all routes will be /api/chats/:id
 app.use('/api/chats', chatRoutes)
