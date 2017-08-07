@@ -24,6 +24,6 @@ const
     if(!this.isModified('password')) return next()
     this.password = this.generateHash(this.password)
     next()
-  }
+  })
 
   module.exports = mongoose.model('User', userSchema)
