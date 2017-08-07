@@ -9,6 +9,7 @@ const
   morgan = require('morgan'),
   bodyParser = require ('body-parser'),
   User = require('./models/User.js'),
+  Chat = require('./models/Chat.js'),
   jwt = require('jsonwebtoken'),
   cors = require('cors'),
   chatRoutes = require('./routes/chats.js'),
@@ -32,19 +33,19 @@ mongoose.connect(mongoUrl, (err) => {
 })
 
 //store session
-const store = new MongoDBStore({
-  uri: mongoConnectionString,
-  collection: 'sessions'
-})
-
-//session + passport
-app.use(session({
-  secret: 'bananas',
-  cookie: {maxAge: 60000000},
-  resave: true,
-  saveUninitialised: false,
-  store: store
-}))
+// const store = new mongoDBStore({
+//   uri: mongoConnectionString,
+//   collection: 'sessions'
+// })
+//
+// //session + passport
+// app.use(session({
+//   secret: 'bananas',
+//   cookie: {maxAge: 60000000},
+//   resave: true,
+//   saveUninitialised: false,
+//   store: store
+// }))
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -61,6 +62,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 //socket.io
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
+    //save to database
+    var newMessage = new Chat({message : msg})
+    newMessage.save()
     io.emit('chat message', msg)
   })
 })
