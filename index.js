@@ -9,7 +9,7 @@ const
   morgan = require('morgan'),
   bodyParser = require ('body-parser'),
   User = require('./models/User.js'),
-  jwt = require('jsonwebtoken'),
+  Chat = require('./models/Chat.js'),
   cors = require('cors'),
   chatRoutes = require('./routes/chats.js'),
   httpServer = require('http').Server(app),
@@ -17,14 +17,9 @@ const
   ejsLayouts = require('express-ejs-layouts'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
-  mongoDBStore = require('connect-mongodb-session')(session),
+  MongoDBStore = require('connect-mongodb-session')(session),
   passport = require('passport'),
   passportConfig = require('./config/passport.js')
-
-
-
-
-
 
 //mongodb
 mongoose.connect(mongoUrl, (err) => {
@@ -33,7 +28,7 @@ mongoose.connect(mongoUrl, (err) => {
 
 //store session
 const store = new MongoDBStore({
-  uri: mongoConnectionString,
+  uri: mongoUrl,
   collection: 'sessions'
 })
 
@@ -61,6 +56,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 //socket.io
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
+    //save to database
+    var newMessage = new Chat({message: msg})
+    newMessage.save()
     io.emit('chat message', msg)
   })
 })
