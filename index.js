@@ -3,7 +3,9 @@ const
   express = require('express'),
   app = express(),
   ejs = require('ejs'),
+  ejsLayouts = require('express-ejs-layouts'),
   mongoose = require('mongoose'),
+  flash = require('connect-flash'),
   mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/ChatrBox',
   PORT = process.env.PORT || 3000,
   morgan = require('morgan'),
@@ -14,12 +16,12 @@ const
   chatRoutes = require('./routes/chats.js'),
   httpServer = require('http').Server(app),
   io = require('socket.io')(httpServer),
-  ejsLayouts = require('express-ejs-layouts'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
   MongoDBStore = require('connect-mongodb-session')(session),
   passport = require('passport'),
-  passportConfig = require('./config/passport.js')
+  passportConfig = require('./config/passport.js'),
+  userRoutes = require('./routes/users.js')
 
 //mongodb
 mongoose.connect(mongoUrl, (err) => {
@@ -47,6 +49,17 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
+app.use('/', userRoutes)
+app.use((req, res, next) => {
+  app.locals.currentUser = req.user //current User is avail in ALL views
+  app.locals.loggedIn = !!req.user //boolean loggedIn available in ALL views
+  next()
+})
+
+app.use(function (req, res, next) {
+  res.locals.login = req.isAuthenticated()
+  next()
+})
 
 
 //Use middleware
