@@ -10,7 +10,6 @@ const
   PORT = process.env.PORT || 3000,
   morgan = require('morgan'),
   bodyParser = require ('body-parser'),
-  User = require('./models/User.js'),
   Chat = require('./models/Chat.js'),
   cors = require('cors'),
   chatRoutes = require('./routes/chats.js'),
@@ -21,7 +20,8 @@ const
   MongoDBStore = require('connect-mongodb-session')(session),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
-  userRoutes = require('./routes/users.js')
+  userRoutes = require('./routes/users.js'),
+  User = require('./models/User.js')
 
 //mongodb
 mongoose.connect(mongoUrl, (err) => {

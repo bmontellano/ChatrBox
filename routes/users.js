@@ -1,12 +1,7 @@
 const
   express = require('express'),
   passport = require('passport'),
-  userRouter = express.Router(),
-  flash = require('connect-flash'),
-  app = express()
-
-
-app.use(flash())
+  userRouter = express.Router()
 
 
   //create session using password
@@ -15,7 +10,7 @@ app.use(flash())
   		res.render('login')
   	})
   	.post(passport.authenticate('local-login', {
-  		successRedirect: '/profile',
+  		successRedirect: '/',
   		failureRedirect: '/login'
   	}))
 
@@ -25,7 +20,7 @@ app.use(flash())
     		res.render('signup')
     	})
     	.post(passport.authenticate('local-signup', {
-    		successRedirect: '/profile',
+    		successRedirect: '/',
     		failureRedirect: '/signup'
     	}))
 
