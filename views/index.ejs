@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         $(function () {
@@ -21,12 +22,16 @@
     <title>ChatrBox</title>
   </head>
   <body>
-    <h2>Login</h2>
-    <form>
-      <input id='email' />
-      <input id='password' />
-      <button>Log In</button>
-    </form>
+    <div class="topnav">
+      <a href="/">ChtrBox</a>
+
+      <a href="/logout">Logout</a>
+
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+      
+    </div>
+
     <h2>Chat</h2>
     <ul id='messages'></ul>
     <form>
