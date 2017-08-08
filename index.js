@@ -28,6 +28,8 @@ mongoose.connect(mongoUrl, (err) => {
   console.log(err || "Connected to MongoDB. WHOOP!")
 })
 
+app.use(flash())
+
 //store session
 const store = new MongoDBStore({
   uri: mongoUrl,
@@ -37,6 +39,8 @@ const store = new MongoDBStore({
 //public folder declaration
 app.use(express.static(__dirname + '/public'))
 
+//require user Routes
+app.use('/', userRoutes)
 
 //session + passport
 app.use(session({
@@ -47,13 +51,16 @@ app.use(session({
   store: store
 }))
 
+
+
 app.use(passport.initialize())
 app.use(passport.session())
-app.use('/', userRoutes)
+
 app.use((req, res, next) => {
-  app.locals.currentUser = req.user //current User is avail in ALL views
-  app.locals.loggedIn = !!req.user //boolean loggedIn available in ALL views
-  next()
+	app.locals.currentUser = req.user // currentUser now available in ALL views
+	app.locals.loggedIn = !!req.user // a boolean loggedIn now available in ALL views
+
+	next()
 })
 
 app.use(function (req, res, next) {

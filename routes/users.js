@@ -1,42 +1,47 @@
 const
   express = require('express'),
   passport = require('passport'),
-  userRouter = express.Router()
+  userRouter = express.Router(),
+  flash = require('connect-flash'),
+  app = express()
 
-userRouter.route('/login')
-  .get((req, res) => {
-    res.render('login')
-  })
-  .post(passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }))
 
-userRouter.route('/signup')
-  .get((req,res) => {
-    res.render('signup')
-  })
-  .post(passport.authenticate('local-signup', {
+app.use(flash())
 
-    successRedirect: '/',
-    failureRedirect: '/signup'
-  }))
 
-userRouter.get('/profile', isLoggedIn, (req,res) => {
-  res.render('profile', {user: req.user})
-  //render the user's profile (only if they are currently logged in)
-})
+  //create session using password
+  userRouter.route('/login')
+  	.get((req,res) => {
+  		res.render('login')
+  	})
+  	.post(passport.authenticate('local-login', {
+  		successRedirect: '/profile',
+  		failureRedirect: '/login'
+  	}))
 
-userRouter.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect('/')
-  //destroy the session, and redirect the user back to the home page
-})
+    userRouter.route('/signup')
+    	.get((req,res) => {
+    		// render create account form
+    		res.render('signup')
+    	})
+    	.post(passport.authenticate('local-signup', {
+    		successRedirect: '/profile',
+    		failureRedirect: '/signup'
+    	}))
 
-//a method used to authorize a user BEFORE allowing them to proceed to the profile page:
-function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated()) return next()
-  res.redirect('/')
-}
+      userRouter.get('/profile', isLoggedIn, (req,res) => {
+      	res.render('profile', {user: req.user})
+      })
 
-module.exports = userRouter
+      userRouter.get('/logout', (req,res) => {
+      	req.logout()
+      	res.redirect('/')
+      })
+
+  // a method used to authorize a user BEFORE allowing them to proceed to the profile page:
+  function isLoggedIn(req, res, next){
+  	if(req.isAuthenticated()) return next()
+  	res.redirect('/')
+  }
+
+  module.exports = userRouter
