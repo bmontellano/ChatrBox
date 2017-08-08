@@ -1,3 +1,6 @@
+var feedback = document.getElementById('feedback');
+var messages = document.getElementById('messages');
+
 $(function () {
 var socket = io()
 $('form').submit(function(){
@@ -8,4 +11,9 @@ $('form').submit(function(){
 socket.on('chat message', function(msg){
  $('#messages').append($('<li>').text(msg))
 })
+})
+
+//user is typing..
+message.addEventListener('keypress', function() {
+  socket.emit('typing',)
 })
