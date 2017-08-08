@@ -11,6 +11,7 @@
     <title>ChatrBox</title>
   </head>
   <body>
+    <h2>ChatrBox</h2>
     <div class="topnav">
       <a href="/">ChtrBox</a>
 
@@ -21,11 +22,11 @@
 
     </div>
 
-    <h2>ChatrBox</h2>
+    <!-- <h2>ChatrBox</h2>
     <ul id='messages'></ul>
     <form>
       <input id='m' autocomplete='off'/><button>Send</button>
-    </form>
+    </form> -->
   <!--Bootstrap  -->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -59,7 +60,7 @@
     <div class="col-md-8 bg-white ">
           <div class="chat-message">
               <ul class="chat">
-              
+                <ul id='messages'></ul>
                   <li class="right clearfix">
                       <span class="chat-img pull-right">
                       <img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">
@@ -76,9 +77,15 @@
                   </li>
               </ul>
           </div>
+
+
+
+
           <div class="chat-box bg-white">
             <div class="input-group">
-              <input class="form-control border no-shadow no-rounded" placeholder="Type your message here">
+              <form>
+                <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" /><button class="btn btn-success no-rounded">Send</button>
+              </form>
               <span class="input-group-btn">
                 <button class="btn btn-success no-rounded" type="button">Send</button>
               </span>
