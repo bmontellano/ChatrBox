@@ -32,6 +32,10 @@ const store = new MongoDBStore({
   collection: 'sessions'
 })
 
+//public folder declaration
+app.use(express.static(__dirname + '/public'))
+
+
 //session + passport
 app.use(session({
   secret: 'bananas',

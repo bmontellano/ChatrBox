@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bmontellano/ChatrBox.git"
+    "url": "git+https://github.com/bluesboymark/ChatrBox.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bmontellano/ChatrBox/issues"
+    "url": "https://github.com/bluesboymark/ChatrBox/issues"
   },
-  "homepage": "https://github.com/bmontellano/ChatrBox#readme",
+  "homepage": "https://github.com/bluesboymark/ChatrBox#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
@@ -26,7 +26,7 @@
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "express-ejs-layouts": "^2.3.0",
     "express-session": "^1.15.3",
     "mongoose": "^4.10.8",
@@ -34,5 +34,6 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "socket.io": "^2.0.3"
-  }
+  },
+  "devDependencies": {}
 }
