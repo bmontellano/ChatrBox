@@ -89,6 +89,7 @@ httpServer.listen(PORT, function(err) {
 
 //view engine
 app.set('view engine', 'ejs')
+// app.use(ejsLayouts)
 
 
 //route
@@ -96,34 +97,48 @@ app.get('/', function(req,res) {
   res.render('index')
 })
 
-//User routes
-app.route('/api/users')
-  .get((req, res) => {
-    User.find({}, (err, users) => {
-      res.json(users)
-    })
+app.get('/users', (req, res) => {
+  User.find({}, (err, user) => {
+    if (err) return console.log(err)
+    res.json(user)
   })
-  .post((req, res) => {
-    User.create(req.body, (err, user) => {
-      res.json({success: true, message: "User Created", user})
-    })
-  })
+})
 
-//Updating user
-app.route('api/users/:id')
-  .get((req, res) => {
-    User.findById(req.params.id, (err, user) => {
-      res.json(user)
-    })
+app.post('/users', (req, res) => {
+  User.create(req.body, (err, user) => {
+    if (err) return console.log(err)
+    res.json(user)
   })
-  .patch((req, res) => {
-    User.findById(req.params.id, (err, user) => {
-      Object.assign(user, req.body)
-      user.save((err, updatedUser) => {
-        res.json({success: true, message: "User updated.", user: updatedUser})
-      })
-    })
-  })
+})
 
-//all routes will be /api/chats/:id
-app.use('/api/chats', chatRoutes)
+// //User routes
+// app.route('/api/users')
+//   .get((req, res) => {
+//     User.find({}, (err, users) => {
+//       res.json(users)
+//     })
+//   })
+//   .post((req, res) => {
+//     User.create(req.body, (err, user) => {
+//       res.json({success: true, message: "User Created", user})
+//     })
+//   })
+//
+// //Updating user
+// app.route('api/users/:id')
+//   .get((req, res) => {
+//     User.findById(req.params.id, (err, user) => {
+//       res.json(user)
+//     })
+//   })
+//   .patch((req, res) => {
+//     User.findById(req.params.id, (err, user) => {
+//       Object.assign(user, req.body)
+//       user.save((err, updatedUser) => {
+//         res.json({success: true, message: "User updated.", user: updatedUser})
+//       })
+//     })
+//   })
+//
+// //all routes will be /api/chats/:id
+// app.use('/api/chats', chatRoutes)
