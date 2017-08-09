@@ -17,7 +17,12 @@
           <!-- =============================================================== -->
           <!-- member list -->
           <ul class="friend-list">
-
+            <% users.forEach((user) => { %>
+              <li>
+                <h3><%= user.local.name %></h3>
+                <p><%= user.local.email %></p>
+              </li>
+            <% }) %>
               <li>
                   <a href="#" class="clearfix">
                   <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
@@ -62,9 +67,9 @@
 
       <div class="chat-box bg-white">
         <div class="input-group">
-          <form class="type-form">
+          <form>
             <% if(loggedIn) { %>
-            <input id='m' autocomplete='off' class="" />
+            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" />
             <button class="btn btn-success no-rounded">Send</button>
             <% } %>
           </form>

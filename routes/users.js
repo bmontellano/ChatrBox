@@ -1,7 +1,8 @@
 const
   express = require('express'),
   passport = require('passport'),
-  userRouter = express.Router()
+  userRouter = express.Router(),
+  User = require('../models/User.js')
 
 
   //create session using password
@@ -26,6 +27,13 @@ const
 
       userRouter.get('/profile', isLoggedIn, (req,res) => {
       	res.render('profile', {user: req.user})
+      })
+
+      userRouter.get('/', isLoggedIn, (req, res) => {
+        User.find({}).exec(function(err, users) {
+          if (err) throw err;
+          res.render('index.ejs', {"users": users})
+        })
       })
 
       userRouter.get('/logout', (req,res) => {
