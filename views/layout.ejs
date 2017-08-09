@@ -7,13 +7,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight" rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
     <title>ChatrBox</title>
   </head>
   <body>
     <div class="topnav">
-      <a href="/">ChatrBox</a>
+      <a id="title" href="/">ChatrBox</a>
       <% if(loggedIn) { %>
+        <a href="/profile">Edit User</a>
         <a href="/logout">Logout</a>
       <% } else { %>
         <a href="/login">Login</a>
