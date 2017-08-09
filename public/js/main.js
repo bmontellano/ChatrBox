@@ -14,6 +14,6 @@ socket.on('chat message', function(msg){
 })
 
 //user is typing..
-message.addEventListener('keypress', function() {
-  socket.emit('typing',)
+messages.addEventListener('keypress', function() {
+  socket.emit('typing')
 })

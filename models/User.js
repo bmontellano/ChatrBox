@@ -5,7 +5,7 @@ const
     local: {
         name: String,
         email: String,
-        password: {type: String, select: false}
+        password: {type: String}
         //With {...select: false}, passwords won't be included in query searches of users.
       }
   })
@@ -17,8 +17,10 @@ const
 
 //CompareSync: compares provided password with encrypted one in DB
   userSchema.methods.validPassword = function(password) {
+    console.log("Trying to validate password...")
+    console.log("Password", password)
     if(!password) return false
-    return bcrypt.compareSync(password, this.password)
+    return bcrypt.compareSync(password, this.local.password)
   }
 
 //Encrypts passwords if changed upon update of users

@@ -39,9 +39,6 @@ const store = new MongoDBStore({
 //public folder declaration
 app.use(express.static(__dirname + '/public'))
 
-//require user Routes
-app.use('/', userRoutes)
-
 //session + passport
 app.use(session({
   secret: 'bananas',
@@ -79,9 +76,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 //socket.io
 io.on('connection', function(socket){
+  console.log("new client connected...")
   socket.on('chat message', function(msg){
     //save to database
-    var newMessage = new Chat({message: msg})
+    var newMessage = new Chat(msg)
     newMessage.save()
     io.emit('chat message', msg)
   })
@@ -96,7 +94,7 @@ httpServer.listen(PORT, function(err) {
 
 //view engine
 app.set('view engine', 'ejs')
-// app.use(ejsLayouts)
+app.use(ejsLayouts)
 
 
 //route
@@ -110,6 +108,9 @@ app.get('/users', (req, res) => {
     res.json(user)
   })
 })
+
+//require user Routes
+app.use('/', userRoutes)
 
 app.post('/users', (req, res) => {
   User.create(req.body, (err, user) => {
