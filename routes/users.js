@@ -25,21 +25,42 @@ const
     		failureRedirect: '/signup'
     	}))
 
-      userRouter.get('/profile', isLoggedIn, (req,res) => {
-      	res.render('profile', {user: req.user})
-      })
-
-      userRouter.get('/', isLoggedIn, (req, res) => {
+      // edit user
+    userRouter.get('/edituser', isLoggedIn, (req,res) => {
         User.find({}).exec(function(err, users) {
           if (err) throw err;
-          res.render('index.ejs', {"users": users})
+          users.save(function(err) {
+          if (err) return next(err)
+          // What's happening in passport's session? Check a specific field...
+              console.log("Before relogin: "+req.session.passport.user.changedField)
+              req.login(user, function(err) {
+                if (err) return next(err)
+                console.log("After relogin: "+req.session.passport.user.changedField)
+                res.send(200)
+            })
+          })
         })
       })
 
-      userRouter.get('/logout', (req,res) => {
-      	req.logout()
-      	res.redirect('/')
+
+
+    //show profile
+    userRouter.get('/profile', isLoggedIn, (req, res) => {
+    	res.render('profile', {user: req.user})
+    })
+
+
+    userRouter.get('/', isLoggedIn, (req, res) => {
+      User.find({}).exec(function(err, users) {
+        if (err) throw err;
+        res.render('index.ejs', {"users": users})
       })
+    })
+
+    userRouter.get('/logout', (req,res) => {
+    	req.logout()
+    	res.redirect('/')
+    })
 
   // a method used to authorize a user BEFORE allowing them to proceed to the profile page:
   function isLoggedIn(req, res, next){
