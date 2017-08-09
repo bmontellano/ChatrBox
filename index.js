@@ -98,9 +98,9 @@ app.use(ejsLayouts)
 
 
 //route
-app.get('/', function(req,res) {
-  res.render('index')
-})
+// app.get('/',(req,res) => {
+//   res.render('index')
+// })
 
 app.get('/users', (req, res) => {
   User.find({}, (err, user) => {
