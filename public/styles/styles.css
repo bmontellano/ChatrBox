@@ -167,4 +167,7 @@ a:hover, a:active, a:focus {
   text-decoration: none;
   outline: 0; }
 
+.type-form {
+  height: 60px !important; }
+
 /*# sourceMappingURL=styles.css.map */
