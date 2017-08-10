@@ -76,6 +76,12 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 //socket.io
 io.on('connection', function(socket){
+  var query = Chat.find({})
+  query.sort('-created').limit(8).exec(function(err, docs) {
+    if (err) throw err;
+    console.log('sending old chats')
+    socket.emit('load old chats', docs);
+  })
   console.log("new client connected...")
   socket.on('chat message', function(msg){
     //save to database

@@ -72,10 +72,9 @@
 </div>
 
 <script>
-var feedback = document.getElementById('feedback');
-var messages = document.getElementById('messages');
-
 $(function () {
+  var feedback = document.getElementById('feedback');
+  var messages = document.getElementById('messages');
   var socket = io()
 
   $('form').submit(function(){
@@ -83,14 +82,25 @@ $(function () {
      $('#m').val('')
      return false
   })
+
   socket.on('chat message', function(msg){
     $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
   })
-})
-// $('<li>').text(msg._user + ': ' + msg.message )
-//user is typing..
-messages.addEventListener('keypress', function() {
-  socket.emit('typing')
+  // $('<li>').text(msg._user + ': ' + msg.message )
+  //user is typing..
+  messages.addEventListener('keypress', function() {
+    socket.emit('typing')
+  })
+
+  function addMessage(msg) {
+    $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
+  }
+
+  socket.on('load old chats', function(docs) {
+    for (i=docs.length-1; i >= 0; i--) {
+      addMessage(docs[i])
+    }
+  })
 })
 
 </script>
