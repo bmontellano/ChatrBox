@@ -25,9 +25,10 @@ const
 
 //Encrypts passwords if changed upon update of users
   userSchema.pre('save', function(next) {
-    if(!this.isModified('password')) return next()
-    this.password = this.generateHash(this.password)
+    if(!this.isModified('local.password')) return next()
+    this.local.password = this.generateHash(this.local.password)
     next()
   })
 
-  module.exports = mongoose.model('User', userSchema)
+  const User = mongoose.model('User', userSchema)
+  module.exports = User
