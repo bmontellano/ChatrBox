@@ -17,16 +17,20 @@ const
 
 //CompareSync: compares provided password with encrypted one in DB
   userSchema.methods.validPassword = function(password) {
-    if(!password) return false
+    console.log('******** TRYING TO GET PASSWORD ********')
+    console.log(password)
+    console.log(this.local.password)
+    console.log(' ******** ******** ********')
+    // if(!password) return false
+    console.log(bcrypt.compareSync(password, this.local.password));
     return bcrypt.compareSync(password, this.local.password)
   }
 
 //Encrypts passwords if changed upon update of users
-  userSchema.pre('save', function(next) {
-    if(!this.isModified('local.password')) return next()
-    this.local.password = this.generateHash(this.local.password)
-    next()
-  })
+  // userSchema.pre('save', function(next) {
+  //   if(!this.isModified('local.password')) return next()
+  //   this.local.password = this.generateHash(this.local.password)
+  //   next()
+  // })
 
-  const User = mongoose.model('User', userSchema)
-  module.exports = User
+  module.exports = mongoose.model('User', userSchema)
