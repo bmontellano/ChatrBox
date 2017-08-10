@@ -1,21 +1,19 @@
-//GIPHY API
-var searchInput = $('#search-input')
-var searchButton = $('#search-button')
-
-searchButton.on('click', function() {
-  console.log('giphy click')
-
-  var requestSettings = {
-    method: 'get',
-    url: '/search' +searchInput.val()
-  }
-
-  function cb(d) {
-    $('#results').empty()
-    for (i = 0; i < d.data.length; i ++) {
-      var imgUrl = d.data[i].images.downsized.url
-      var imgTag = $('<img>')
-      imgTag.attr('src', imgUrl)
-      $('#results').append(imgTag)
-  }
-})
+// var feedback = document.getElementById('feedback');
+// var messages = document.getElementById('messages');
+//
+// $(function () {
+// var socket = io()
+// $('form').submit(function(){
+//  socket.emit('chat message', $('#m').val());
+//  $('#m').val('')
+//  return false
+// })
+// socket.on('chat message', function(msg){
+//  $('#messages').append($('<li>').text(msg))
+// })
+// })
+//
+// //user is typing..
+// messages.addEventListener('keypress', function() {
+//   socket.emit('typing')
+// })

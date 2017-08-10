@@ -28,20 +28,11 @@
         </ul>
       </div>
       <div class="chat-box bg-white">
-        <div id="results">
-        </div>
         <div class="input-group">
           <form>
             <% if(loggedIn) { %>
-            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" placeholder="Type your message here" />
-            <span class="input-group-btn">
-              <button class="btn btn-success no-rounded" type="button">Send</button>
-            </span>
-            <div class="content">
-              <h5>Giphy Search</h5>
-              <input id="search-input" class="form-control border no-shadow no-rounded" placeholder="Search GIFs"/>
-              <button id = "search-button" class="btn btn-success no-rounded" type="button">Search</button>
-          </div>
+            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" />
+            <button class="btn btn-success no-rounded">Send</button>
             <% } %>
           </form>
         </div><!-- /input-group -->
