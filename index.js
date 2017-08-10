@@ -86,8 +86,12 @@ io.on('connection', function(socket){
   console.log("new client connected...")
   socket.on('chat message', function(msg){
     //save to database
+    console.log(msg)
     var newMessage = new Chat(msg)
+    console.log(newMessage)
     newMessage.save()
+    console.log('saving message')
+    console.log(Chat.count())
     io.emit('chat message', msg)
   })
 })
