@@ -17,8 +17,6 @@ const
 
 //CompareSync: compares provided password with encrypted one in DB
   userSchema.methods.validPassword = function(password) {
-    console.log("Trying to validate password...")
-    console.log("Password", password)
     if(!password) return false
     return bcrypt.compareSync(password, this.local.password)
   }

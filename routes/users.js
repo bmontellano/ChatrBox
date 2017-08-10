@@ -34,9 +34,6 @@ const
       })
 
       userRouter.post('/updateprofile', isLoggedIn, function(req, res) {
-        console.log(req.user)
-        console.log(req.body)
-
         User.findById(req.user._id, (err, user) => {
           Object.assign(user, {local: req.body})
           user.save((err, updatedUser) => {
