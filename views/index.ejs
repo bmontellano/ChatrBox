@@ -29,11 +29,20 @@
         </ul>
       </div>
       <div class="chat-box bg-white">
+        <div id="results">
+        </div>
         <div class="input-group">
           <form>
             <% if(loggedIn) { %>
-            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" />
-            <button class="btn btn-success no-rounded">Send</button>
+            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" placeholder="Type your message here" />
+            <span class="input-group-btn">
+              <button class="btn btn-success no-rounded" type="button">Send</button>
+            </span>
+            <div class="content">
+              <h5>Giphy Search</h5>
+              <input id="search-input" class="form-control border no-shadow no-rounded" placeholder="Search GIFs"/>
+              <button id = "search-button" class="btn btn-success no-rounded" type="button">Search</button>
+          </div>
             <% } %>
           </form>
         </div><!-- /input-group -->
@@ -55,7 +64,7 @@ $(function () {
   })
 
   socket.on('chat message', function(msg){
-    $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
+    $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
   })
   // $('<li>').text(msg._user + ': ' + msg.message )
   //user is typing..
@@ -64,7 +73,7 @@ $(function () {
   })
 
   function addMessage(msg) {
-    $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
+    $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
   }
 
   socket.on('load old chats', function(docs) {

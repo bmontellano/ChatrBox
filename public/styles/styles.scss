@@ -1,5 +1,10 @@
-h2 {
-  color: blue;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
 }
 
 // bootstrap
@@ -14,12 +19,13 @@ body {
 }
 
 .bg-white {
-  background-color: #fff;
+  background-color: #f9f9f9;
 }
 
 .friend-list {
   list-style: none;
 margin-left: -40px;
+padding-left: 40px;
 }
 
 .friend-list li {
@@ -79,7 +85,7 @@ small, .small {
 }
 
 .chat-message {
-  padding: 60px 20px 115px;
+  padding: 10px 10px 10px;
 }
 
 .chat {
@@ -105,6 +111,7 @@ img {
 
 .chat-body {
   padding-bottom: 20px;
+  background-color: #ffe6cb;
 }
 
 .chat li.left .chat-body {
@@ -172,7 +179,7 @@ img {
 }
 
 .chat li.right .chat-body {
-  margin-right: 70px;
+  margin-right: 0px;
   background-color: #fff;
 }
 
@@ -182,7 +189,7 @@ img {
   left: 444px;
   right: 0;
   padding: 15px;
-  border-top: 1px solid #eee;
+  // border-top: 1px solid #eee;
   transition: all .5s ease;
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;

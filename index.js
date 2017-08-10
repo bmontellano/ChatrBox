@@ -21,7 +21,8 @@ const
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/users.js'),
-  User = require('./models/User.js')
+  User = require('./models/User.js'),
+  imageController = require('./controllers/images.js')
 
 //mongodb
 mongoose.connect(mongoUrl, (err) => {
@@ -91,7 +92,7 @@ io.on('connection', function(socket){
   })
 })
 
-
+//GIPHY_API_KEY
 
 //server
 httpServer.listen(PORT, function(err) {

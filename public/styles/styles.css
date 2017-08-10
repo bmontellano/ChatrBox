@@ -1,5 +1,9 @@
-h2 {
-  color: blue; }
+* {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-type: none; }
 
 body {
   padding-top: 0;
@@ -10,11 +14,12 @@ body {
   margin-top: 20px; }
 
 .bg-white {
-  background-color: #fff; }
+  background-color: #f9f9f9; }
 
 .friend-list {
   list-style: none;
-  margin-left: -40px; }
+  margin-left: -40px;
+  padding-left: 40px; }
 
 .friend-list li {
   border-bottom: 1px solid #eee; }
@@ -64,7 +69,7 @@ small, .small {
   padding: 3px 5px; }
 
 .chat-message {
-  padding: 60px 20px 115px; }
+  padding: 10px 10px 10px; }
 
 .chat {
   list-style: none;
@@ -84,7 +89,8 @@ img {
   max-width: 100%; }
 
 .chat-body {
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  background-color: #ffe6cb; }
 
 .chat li.left .chat-body {
   margin-left: 70px;
@@ -144,7 +150,7 @@ img {
   margin: 15px 0; }
 
 .chat li.right .chat-body {
-  margin-right: 70px;
+  margin-right: 0px;
   background-color: #fff; }
 
 .chat-box {
@@ -153,7 +159,6 @@ img {
   left: 444px;
   right: 0;
   padding: 15px;
-  border-top: 1px solid #eee;
   transition: all .5s ease;
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
