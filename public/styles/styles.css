@@ -77,16 +77,6 @@ small, .small {
 .chat-message {
   background: #f9f9f9; }
 
-.chat li img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50em;
-  -moz-border-radius: 50em;
-  -webkit-border-radius: 50em; }
-
-img {
-  max-width: 100%; }
-
 .chat-body {
   padding-bottom: 20px; }
 
@@ -154,7 +144,7 @@ img {
 .chat-box {
   position: fixed;
   bottom: 0;
-  left: 444px;
+  left: 592px;
   right: 0;
   padding: 15px;
   border-top: 1px solid #eee;
