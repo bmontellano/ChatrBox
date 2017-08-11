@@ -28,19 +28,22 @@
         </ul>
       </div>
       <div class="chat-box bg-white">
+        <!-- giphy search result -->
+        <div id="results">
+        </div>
         <div class="input-group">
           <form>
             <% if(loggedIn) { %>
             <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded" />
-            <button class="btn btn-success no-rounded">Send</button>
+            <button class="btn btn-success no-rounded">Send Message</button>
             <% } %>
           </form>
+          <button class="btn btn-success no-rounded" id="search-button">GIF!</button>
         </div><!-- /input-group -->
       </div>
     </div>
   </div>
 </div>
-
 <script>
   $(function () {
     var feedback = document.getElementById('feedback');
@@ -48,13 +51,13 @@
     var socket = io()
 
     $('form').submit(function(){
-       socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser.local.name %>' });
-       $('#m').val('')
-       return false
+      socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser._id %>', senderName: '<%= currentUser.local.name  %>', chatType: "text" });
+          $('#m').val('')
+          return false
     })
 
     socket.on('chat message', function(msg){
-      $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
+      addMessage(msg)
     })
     // $('<li>').text(msg._user + ': ' + msg.message )
     //user is typing..
@@ -63,7 +66,11 @@
     })
 
     function addMessage(msg) {
-      $('#messages').append('<li class="right clearfix"><span class="chat-img pull-right"><img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font"><%= currentUser.local.name %></strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  msg.message + '</p></div></li>')
+      console.log(msg)
+      var messageBody = (msg.chatType === 'text') ? msg.message : '<img src="'+msg.imgUrl+'" />'
+      console.log(messageBody)
+
+      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  messageBody + '</p></div></li>')
     }
 
     socket.on('load old chats', function(docs) {
@@ -71,5 +78,28 @@
         addMessage(docs[i])
       }
     })
+
+    const
+      searchInput = $('#m'),
+      searchButton = $('#search-button')
+
+    searchButton.on('click', function() {
+      console.log("giphy clicked")
+
+      var requestSettings = {
+        method: 'get',
+        url:'/search/' + searchInput.val()
+      }
+
+      function cb(d) {
+        socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+      }
+
+      $.ajax(requestSettings).done(cb)
+    })
+
+
+
+
   })
 </script>
