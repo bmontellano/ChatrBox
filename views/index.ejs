@@ -51,13 +51,14 @@
     var socket = io()
 
     $('form').submit(function(){
-      socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser._id %>', senderName: '<%= currentUser.local.name  %>', chatType: "text" });
+      socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser._id %>', senderName: '<%= currentUser.local.name  %>', chatType: "text", createdAt:(new Date).getTime() });
           $('#m').val('')
           return false
     })
 
     socket.on('chat message', function(msg){
       addMessage(msg)
+
     })
     // $('<li>').text(msg._user + ': ' + msg.message )
     //user is typing..
@@ -70,12 +71,14 @@
       var messageBody = (msg.chatType === 'text') ? msg.message : '<img src="'+msg.imgUrl+'" />'
       console.log(messageBody)
 
-      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small></div><p>' +  messageBody + '</p></div></li>')
+      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor((msg.createdAt/60000 - (new Date().valueOf())/60000)) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
+      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     }
 
     socket.on('load old chats', function(docs) {
       for (i=docs.length-1; i >= 0; i--) {
         addMessage(docs[i])
+
       }
     })
 

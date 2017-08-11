@@ -1,5 +1,9 @@
-h2 {
-  color: blue; }
+* {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-type: none; }
 
 body {
   padding-top: 0;
@@ -10,7 +14,7 @@ body {
   margin-top: 20px; }
 
 .bg-white {
-  background-color: #fff; }
+  background-color: #f9f9f9; }
 
 .friend-list {
   list-style: none;

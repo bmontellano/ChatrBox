@@ -8,7 +8,8 @@ const
     //must contain _ as convention
     _user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     senderName: String,
-    created: {type: Date, default: Date.now}
+    created: {type: Date, default: Date.now},
+    createdAt: {type: Number, default: new Date().getTime()}
   })
 
   const Chat =  mongoose.model('Chat', chatSchema)
