@@ -21,7 +21,8 @@ const
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/users.js'),
-  User = require('./models/User.js')
+  User = require('./models/User.js'),
+  request = require('request')
 
 //mongodb
 mongoose.connect(mongoUrl, (err) => {
@@ -88,10 +89,11 @@ io.on('connection', function(socket){
     console.log(msg)
     var newMessage = new Chat(msg)
     console.log(newMessage)
-    newMessage.save()
-    console.log('saving message')
-    console.log(Chat.count())
-    io.emit('chat message', msg)
+    newMessage.save((err, savedMessage) => {
+      console.log('saving message')
+      console.log(Chat.count())
+      io.emit('chat message', msg)
+    })
   })
 })
 
@@ -126,6 +128,19 @@ app.post('/users', (req, res) => {
   User.create(req.body, (err, user) => {
     if (err) return console.log(err)
     res.json(user)
+  })
+})
+
+//giphy route
+app.get('/search/:searchTerm', (req, res) => {
+  var searchTerm = req.params.searchTerm
+  var apiUrl = 'https://api.giphy.com/v1/gifs/random'
+  var apiKey = process.env.GIPHY_API_KEY
+  var requestUrl = `${apiUrl}?api_key=${apiKey}&tag=${searchTerm}`//backticks!!!!
+
+  request.get(requestUrl, function(err, response, body) {
+    console.log(body)
+    res.json(JSON.parse(body))//turn json into javascript object
   })
 })
 
