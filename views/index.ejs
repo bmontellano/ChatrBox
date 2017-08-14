@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-4 bg-white ">
       <div class=" row border-bottom padding-sm" style="height: 40px;">
-        Members
       </div>
 
       <!-- =============================================================== -->
       <!-- member list -->
       <ul class="friend-list">
+        <h2 id='memberstitle'>Members</h2>
         <% users.forEach((user) => { %>
           <li>
             <h3><%= user.local.name %></h3>
@@ -73,7 +73,7 @@
       var messageBody = (msg.chatType === 'text') ? msg.message : '<img src="'+msg.imgUrl+'" />'
       console.log(messageBody)
 
-      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor((msg.createdAt/60000 - (new Date().valueOf())/60000)) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
+      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
     }
 
     socket.on('load old chats', function(docs) {
