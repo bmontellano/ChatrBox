@@ -70,7 +70,7 @@
 
     function addMessage(msg) {
       console.log(msg)
-      var messageBody = (msg.chatType === 'text') ? msg.message : '<img src="'+msg.imgUrl+'" />'
+      var messageBody = (msg.chatType === 'text') ? msg.message : '<img  alt ="" src="'+msg.imgUrl+'" />'
       console.log(messageBody)
 
       $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
@@ -96,7 +96,13 @@
       }
 
       function cb(d) {
-        socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+        console.log(d)
+        if(d.data.length === 0){
+          console.log("you're fucked")
+        } else {
+            socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+        }
+
       }
 
       $.ajax(requestSettings).done(cb)
