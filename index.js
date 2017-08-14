@@ -88,10 +88,8 @@ io.on('connection', function(socket){
     //save to database
     console.log(msg)
     var newMessage = new Chat(msg)
-    console.log(newMessage)
     newMessage.save((err, savedMessage) => {
       console.log('saving message')
-      console.log(Chat.count())
       io.emit('chat message', msg)
     })
   })

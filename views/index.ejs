@@ -47,6 +47,7 @@
   </div>
 </div>
 <script>
+
   $(function () {
     var feedback = document.getElementById('feedback');
     var messages = document.getElementById('messages');
@@ -107,9 +108,20 @@
 
       $.ajax(requestSettings).done(cb)
     })
-
-
-
-
   })
+
+  $('#main_navbar').on('click', function(){
+      console.log('================clicking edit user================');
+      console.log('edit button pressed')
+      console.log('=========================');
+    })
+
+
+  // 
+  // $('#main_navbar').delegate('.edit_password', 'click', function(){
+  //     console.log('================clicking edit user================');
+  //     console.log('edit button pressed')
+  //     console.log('=========================');
+  //   })
+
 </script>

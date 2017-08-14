@@ -40,19 +40,6 @@ const
             res.redirect('/profile')
           })
         })
-
-
-          // User.update({_id: req.session.passport.user.id}, {
-          //     name: req.body.name,
-          //     email: req.body.email,
-          //     password: req.body.password
-          // }, function(err, numberAffected, rawResponse) {
-          //   console.log(req.body.name)
-          //    console.log('new profile update error');
-          // });
-          // res.render('profile.ejs', {
-          //     user : req.user // get the user out of session and pass to template
-          // });
       });
 
 
