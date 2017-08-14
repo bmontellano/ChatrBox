@@ -210,11 +210,11 @@ a:hover, a:active, a:focus {
 
 }
 
-* {
-  margin: 0;
-  padding: 0;
+#logo {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
 }
 
-ul {
-  list-style-type: none;
-}
+#memberstitle {
+  text-align: center;
