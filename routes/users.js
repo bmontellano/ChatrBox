@@ -25,13 +25,13 @@ const
     		failureRedirect: '/signup'
     	}))
 
-      // edit user
-
 
       //show profile
       userRouter.get('/profile', isLoggedIn, (req, res) => {
         res.render('profile', {user: req.user})
       })
+
+      // edit user
 
       userRouter.post('/updateprofile', isLoggedIn, function(req, res) {
         User.findById(req.user._id, (err, user) => {

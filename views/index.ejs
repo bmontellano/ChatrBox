@@ -1,127 +1,115 @@
-<div class="container bootstrap snippet">
-  <div class="row">
-    <div class="col-md-4 bg-white ">
-      <div class=" row border-bottom padding-sm" style="height: 40px;">
-      </div>
+<div class="container">
+  <div class="container bootstrap snippet">
+    <div class="row">
+      <div class="col-md-4 bg-white ">
+        <div class=" row border-bottom padding-sm" style="height: 40px;">
+        </div>
 
-      <!-- =============================================================== -->
-      <!-- member list -->
-      <ul class="friend-list">
-        <h2 id='memberstitle'>Members</h2>
-        <% users.forEach((user) => { %>
-          <li>
-            <h3><%= user.local.name %></h3>
-            <p><%= user.local.email %></p>
-          </li>
-        <% }) %>
-      </ul>
-    </div>
-    <!--=========================================================-->
-    <!-- selected chat -->
-    <div class="col-md-8 bg-white ">
-      <div class="chat-message">
-        <ul class="chat">
-          <ul id="messages">
-          </ul>
-          <div id="feedback">
-          </div>
+        <!-- =============================================================== -->
+        <!-- member list -->
+        <ul class="friend-list">
+          <h2 id='memberstitle'>Members</h2>
+          <% users.forEach((user) => { %>
+            <li>
+              <h3><%= user.local.name %></h3>
+              <p><%= user.local.email %></p>
+            </li>
+          <% }) %>
         </ul>
       </div>
-      <div class="chat-box bg-white">
-        <!-- giphy search result -->
-        <div id="results">
+      <!--=========================================================-->
+      <!-- selected chat -->
+      <div class="col-md-8 bg-white ">
+        <div class="chat-message">
+          <ul class="chat">
+            <ul id="messages">
+            </ul>
+            <div id="feedback">
+            </div>
+          </ul>
         </div>
-        <div class="input-group col-md-10">
-          <form class="col-md-8">
-            <% if(loggedIn) { %>
-              <div class="col-md-8">
-            <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded"/>
+        <div class="chat-box bg-white">
+          <!-- giphy search result -->
+          <div id="results">
           </div>
-            <button class="btn btn-success no-rounded col-md-4">Send Message</button>
-            <% } %>
-          </form>
-          <button class="btn btn-success no-rounded col-md-2" id="search-button">GIF!</button>
-        </div><!-- /input-group -->
+          <div class="input-group col-md-10">
+            <form class="col-md-8">
+              <% if(loggedIn) { %>
+                <div class="col-md-8">
+              <input id='m' autocomplete='off' class="form-control border no-shadow no-rounded"/>
+            </div>
+              <button class="btn btn-success no-rounded col-md-4">Send Message</button>
+              <% } %>
+            </form>
+            <button class="btn btn-success no-rounded col-md-2" id="search-button">GIF!</button>
+          </div><!-- /input-group -->
+        </div>
       </div>
     </div>
   </div>
 </div>
-<script>
+  <script>
 
-  $(function () {
-    var feedback = document.getElementById('feedback');
-    var messages = document.getElementById('messages');
-    var socket = io()
+    $(function () {
+      var feedback = document.getElementById('feedback');
+      var messages = document.getElementById('messages');
+      var socket = io()
 
-    $('form').submit(function(){
-      socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser._id %>', senderName: '<%= currentUser.local.name  %>', chatType: "text", createdAt:(new Date).getTime() });
-          $('#m').val('')
-          return false
-    })
+      $('form').submit(function(){
+        socket.emit('chat message', {message: $('#m').val(), _user: '<%= currentUser._id %>', senderName: '<%= currentUser.local.name  %>', chatType: "text", createdAt:(new Date).getTime() });
+            $('#m').val('')
+            return false
+      })
 
-    socket.on('chat message', function(msg){
-      addMessage(msg)
-      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    })
-    // $('<li>').text(msg._user + ': ' + msg.message )
-    //user is typing..
-    messages.addEventListener('keypress', function() {
-      socket.emit('typing')
-    })
+      socket.on('chat message', function(msg){
+        addMessage(msg)
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+      })
+      // $('<li>').text(msg._user + ': ' + msg.message )
+      //user is typing..
+      messages.addEventListener('keypress', function() {
+        socket.emit('typing')
+      })
 
-    function addMessage(msg) {
-      console.log(msg)
-      var messageBody = (msg.chatType === 'text') ? msg.message : '<img  alt ="" src="'+msg.imgUrl+'" />'
-      console.log(messageBody)
+      function addMessage(msg) {
+        console.log(msg)
+        var messageBody = (msg.chatType === 'text') ? msg.message : '<img  alt ="" src="'+msg.imgUrl+'" />'
+        console.log(messageBody)
 
-      $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
-    }
-
-    socket.on('load old chats', function(docs) {
-      for (i=docs.length-1; i >= 0; i--) {
-        addMessage(docs[i])
-      }
-      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    })
-
-    const
-      searchInput = $('#m'),
-      searchButton = $('#search-button')
-
-    searchButton.on('click', function() {
-      console.log("giphy clicked")
-
-      var requestSettings = {
-        method: 'get',
-        url:'/search/' + searchInput.val()
+        $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
       }
 
-      function cb(d) {
-        console.log(d)
-        if(d.data.length === 0){
-          console.log("you're fucked")
-        } else {
-            socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+      socket.on('load old chats', function(docs) {
+        for (i=docs.length-1; i >= 0; i--) {
+          addMessage(docs[i])
+        }
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+      })
+
+      const
+        searchInput = $('#m'),
+        searchButton = $('#search-button')
+
+      searchButton.on('click', function() {
+        console.log("giphy clicked")
+
+        var requestSettings = {
+          method: 'get',
+          url:'/search/' + searchInput.val()
         }
 
-      }
+        function cb(d) {
+          console.log(d)
+          if(d.data.length === 0){
+            console.log("you're fucked")
+          } else {
+              socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+          }
 
-      $.ajax(requestSettings).done(cb)
+        }
+
+        $.ajax(requestSettings).done(cb)
+      })
     })
-  })
 
-  $('#main_navbar').on('click', function(){
-      console.log('================clicking edit user================');
-      console.log('edit button pressed')
-      console.log('=========================');
-    })
-
-
-  // 
-  // $('#main_navbar').delegate('.edit_password', 'click', function(){
-  //     console.log('================clicking edit user================');
-  //     console.log('edit button pressed')
-  //     console.log('=========================');
-  //   })
-
-</script>
+  </script>
