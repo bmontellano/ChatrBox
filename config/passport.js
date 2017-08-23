@@ -23,10 +23,10 @@ const
 	User.findOne({'local.email': email}, (err, user) => {
 		if(err) return done(err)
 		if(user) return done(null, false, req.flash('signupMessage', 'That email is taken.'))
-		var newUser = new User()
-         newUser.local.name = req.body.name
-		newUser.local.email = email
-		newUser.local.password = newUser.generateHash(password)
+		var newUser = new User({local: req.body})
+        //  newUser.local.name = req.body.name
+		    //  newUser.local.email = email
+		// newUser.local.password = newUser.generateHash(password)
 		newUser.save((err) => {
 			if(err) throw err
 			return done(null, newUser, null)

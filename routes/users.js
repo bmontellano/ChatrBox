@@ -8,7 +8,9 @@ const
   //create session using password
   userRouter.route('/login')
   	.get((req,res) => {
-  		res.render('login')
+      var message = req.flash('loginMessage')
+      console.log(message)
+  		res.render('login',{message})
   	})
   	.post(passport.authenticate('local-login', {
   		successRedirect: '/',
