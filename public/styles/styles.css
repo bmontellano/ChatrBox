@@ -17,8 +17,7 @@ body {
   background-color: #f9f9f9; }
 
 .friend-list {
-  list-style: none;
-  margin-left: -40px; }
+  list-style: none; }
 
 .friend-list li {
   border-bottom: 1px solid #eee; }
