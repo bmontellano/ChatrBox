@@ -6,7 +6,6 @@ const
         name: String,
         email: String,
         password: {type: String}
-        //With {...select: false}, passwords won't be included in query searches of users.
       }
   })
 

@@ -103,7 +103,7 @@
           if(d.data.length === 0){
             console.log("you're fucked")
           } else {
-              socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>'})
+              socket.emit('chat message', {chatType: 'image', imgUrl: d.data.fixed_height_downsampled_url, senderName: '<%= currentUser.local.name %>', createdAt: (new Date).getTime() })
           }
 
         }
