@@ -171,7 +171,7 @@ a:hover, a:active, a:focus {
 #memberstitle {
   text-align: center; }
 
-#messages {
-  font-size: 30px; }
+.chat p {
+  font-size: 20px; }
 
 /*# sourceMappingURL=styles.css.map */

@@ -72,11 +72,19 @@
       })
 
       function addMessage(msg) {
-        console.log(msg)
         var messageBody = (msg.chatType === 'text') ? msg.message : '<img  alt ="" src="'+msg.imgUrl+'" />'
-        console.log(messageBody)
 
-        $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago' + '</small></div><p>' +  messageBody + '</p></div></li>')
+        function timer(){
+          if( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 60) {
+            return Math.floor((((new Date().valueOf())/60000) - msg.createdAt/60000)/60) + 'hr ago'
+          } else if ( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 1440) {
+            return Math.floor((((new Date().valueOf())/60000) - msg.createdAt/60000)/1440) +'days ago'
+          } else {
+            return Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago'
+          }
+        }
+
+        $('#messages').append('<li class="right clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + msg.senderName + '</strong><small class="pull-right text-muted"><i class="fa fa-clock-o"></i> ' + timer() + '</small></div><p>' +  messageBody + '</p></div></li>')
       }
 
       socket.on('load old chats', function(docs) {
