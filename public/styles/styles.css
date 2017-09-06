@@ -7,7 +7,8 @@ ul {
 
 body {
   padding-top: 0;
-  color: black;
+  font-size: 12px;
+  color: #777;
   background: #f9f9f9;
   font-family: 'Open Sans',sans-serif;
   margin-top: 20px; }
@@ -66,7 +67,7 @@ small, .small {
   padding: 3px 5px; }
 
 .chat-message {
-  padding: 0px 20px 115px; }
+  padding: 60px 20px 115px; }
 
 .chat {
   list-style: none;
@@ -98,6 +99,40 @@ small, .small {
 .chat li .chat-body p {
   margin: 0; }
 
+.chat li.left .chat-body:before {
+  position: absolute;
+  top: 10px;
+  left: -8px;
+  display: inline-block;
+  background: #fff;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid #f1f5fc;
+  border-left: 1px solid #f1f5fc;
+  content: '';
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg); }
+
+.chat li.right .chat-body:before {
+  position: absolute;
+  top: 10px;
+  right: -8px;
+  display: inline-block;
+  background: #fff;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid #f1f5fc;
+  border-right: 1px solid #f1f5fc;
+  content: '';
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg); }
+
 .chat li {
   margin: 15px 0; }
 
@@ -119,9 +154,7 @@ small, .small {
   -o-transition: all .5s ease; }
 
 .primary-font {
-  color: #3c8dbc;
-  font-size: 15px;
- }
+  color: #3c8dbc; }
 
 a:hover, a:active, a:focus {
   text-decoration: none;
@@ -141,10 +174,7 @@ a:hover, a:active, a:focus {
 .chat p {
   font-size: 20px; }
 
-.navbar-brand {
-  font.size: 40px !important; }
-
 #welcome-user {
-  text-align: right;
-}
+  text-align: right; }
+
 /*# sourceMappingURL=styles.css.map */
