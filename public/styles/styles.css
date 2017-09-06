@@ -102,8 +102,8 @@ small, .small {
   margin: 15px 0; }
 
 .chat li.right .chat-body {
-  margin-right: 70px;
-  background-color: #fff; }
+  background-color: #fff;
+  border-radius: 5px; }
 
 .chat-box {
   position: fixed;
@@ -120,7 +120,7 @@ small, .small {
 
 .primary-font {
   color: #3c8dbc;
-  font-size: 15px;
+  font-size: 14px;
  }
 
 a:hover, a:active, a:focus {
@@ -139,12 +139,13 @@ a:hover, a:active, a:focus {
   text-align: center; }
 
 .chat p {
-  font-size: 20px; }
+  font-size: 14px; }
 
 .navbar-brand {
   font.size: 40px !important; }
 
 #welcome-user {
-  text-align: right;
+  padding: 16px 15px;
+  color: white;
 }
 /*# sourceMappingURL=styles.css.map */
