@@ -24,6 +24,7 @@
             </div>
             <ul id="main_navbar" class="nav navbar-nav">
               <% if(loggedIn) { %>
+                <li><a id="welcome-user">Welcome, <%= currentUser.local.name %>!</a></li>
                 <li class='edit_user'><a href="/profile">Edit User</a></li>
                 <li><a href="/logout">Logout</a></li>
               <% } else { %>
@@ -35,11 +36,5 @@
         </nav>
       </div>
     </div>
-    <script type="text/javascript">
-      $('#main_navbar').on('click', function(){
-        console.log('===========clicked navbar===========');
-      })
-    </script>
-
 </body>
   <%- body %>
