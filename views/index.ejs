@@ -71,11 +71,12 @@
       function addMessage(msg) {
         var messageBody = (msg.chatType === 'text') ? msg.message : '<img  alt ="" src="'+msg.imgUrl+'" />'
 
+
         function timer(){
-          if( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 60) {
+          if ( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 1440) {
+            return  Math.floor((((new Date().valueOf())/60000) - msg.createdAt/60000)/1440) +'days ago'
+          } else if ( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 60)  {
             return Math.floor((((new Date().valueOf())/60000) - msg.createdAt/60000)/60) + 'hr ago'
-          } else if ( Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) > 1440) {
-            return Math.floor((((new Date().valueOf())/60000) - msg.createdAt/60000)/1440) +'days ago'
           } else {
             return Math.floor(((new Date().valueOf())/60000) - msg.createdAt/60000) + 'min ago'
           }
